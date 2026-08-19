@@ -11,7 +11,7 @@ export const PAY_INVOICE_URL = "https://paypal.me/AbacusConsultancy";
 // adding it to the end of the link (e.g. paypal.me/yourusername/50 for
 // a flat £50). Replace the placeholder with your real PayPal.Me
 // username and the current filing charge amount.
-export const PAY_FILING_CHARGE_URL = "https://paypal.me/AbacusConsultancy/R54";
+export const PAY_FILING_CHARGE_URL = "https://paypal.me/AbacusConsultancy/54";
 
 export const TIDE_URL = "https://www.tide.co/partners/abacus-consultancy/";
 
