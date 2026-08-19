@@ -5,13 +5,13 @@ export const ONBOARDING_APP_URL = "https://onbaording.abacusapps.us/";
 // PayPal.Me link — the payer types in whatever amount they owe, so one
 // link covers any invoice. Create/confirm yours at paypal.me, then replace
 // the placeholder username below (e.g. https://paypal.me/AbacusConsultancy).
-export const PAY_INVOICE_URL = "https://paypal.me/REPLACE-WITH-YOUR-PAYPAL-ME-USERNAME";
+export const PAY_INVOICE_URL = "https://paypal.me/AbacusConsultancy ";
 
 // Fixed-amount filing charge. PayPal.Me supports a fixed amount by
 // adding it to the end of the link (e.g. paypal.me/yourusername/50 for
 // a flat £50). Replace the placeholder with your real PayPal.Me
 // username and the current filing charge amount.
-export const PAY_FILING_CHARGE_URL = "https://paypal.me/REPLACE-WITH-YOUR-PAYPAL-ME-USERNAME/REPLACE-WITH-AMOUNT";
+export const PAY_FILING_CHARGE_URL = "https://paypal.me/paypal.me/AbacusConsultancy /R54";
 
 export const TIDE_URL = "https://www.tide.co/partners/abacus-consultancy/";
 
