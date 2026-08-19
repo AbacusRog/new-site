@@ -20,21 +20,25 @@ This produces a `dist/` folder — upload/connect that the same way you
 deploy the onboarding form and company register (Cloudflare Pages,
 build command `npm run build`, output directory `dist`).
 
-## Two links to double-check before you go live
+## Three links to double-check before you go live
 
 Open `src/siteConfig.js` — everything site-specific lives there:
 
-1. **`PAY_INVOICE_URL`** — currently a placeholder. In your Square
-   Dashboard: **Payment links → Create link → Collect a payment →**
-   toggle on **"Allow buyer to set the price"** (this is the same
-   mechanism your existing "Pay Filing Charge" link uses, just with
-   the price left open). Copy the resulting `square.link/...` URL in.
-2. **`ONBOARDING_APP_URL`** — already set to
+1. **`PAY_INVOICE_URL`** — currently a placeholder. Create or confirm
+   your link at [paypal.me](https://paypal.me) (sign in → set/check
+   your PayPal.Me username), then copy the resulting
+   `https://paypal.me/yourusername` URL in. The payer types in the
+   amount themselves, so one link covers any invoice.
+2. **`PAY_FILING_CHARGE_URL`** — also a placeholder now. PayPal.Me
+   supports a fixed amount by adding it to the end of the same link,
+   e.g. `https://paypal.me/yourusername/50` for a flat £50 charge.
+   Use your PayPal.Me username plus the current filing charge amount.
+3. **`ONBOARDING_APP_URL`** — already set to
    `https://onbaording.abacusapps.us/`. Update here if that domain
    changes.
 
-`PAY_FILING_CHARGE_URL` and `TIDE_URL` were carried over from the
-current site and don't need changes unless those links change.
+`TIDE_URL` was carried over from the current site and doesn't need
+changes unless that link changes.
 
 ## What's on the site
 
