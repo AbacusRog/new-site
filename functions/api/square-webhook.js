@@ -21,19 +21,28 @@ export async function onRequestPost(context) {
   const { request, env } = context;
   const bodyText = await request.text();
 
-  const signatureHeader = request.headers.get("x-square-hmacsha256-signature") || "";
-  const signatureUrl = env.SQUARE_WEBHOOK_URL;
+  const signatureHeader = (request.headers.get("x-square-hmacsha256-signature") || "").trim();
+  const signatureUrl = (env.SQUARE_WEBHOOK_URL || "").trim();
+  const signatureKey = (env.SQUARE_WEBHOOK_SIGNATURE_KEY || "").trim();
 
-  if (!env.SQUARE_WEBHOOK_SIGNATURE_KEY || !signatureUrl) {
+  if (!signatureKey || !signatureUrl) {
     return new Response("Webhook not configured", { status: 500 });
   }
 
-  const valid = await verifySquareSignature(
-    env.SQUARE_WEBHOOK_SIGNATURE_KEY,
-    signatureUrl,
-    bodyText,
-    signatureHeader
-  );
+  const computed = await computeSquareSignature(signatureKey, signatureUrl, bodyText);
+  const valid = computed === signatureHeader;
+
+  // Temporary diagnostics — safe to leave in short-term (no secrets logged,
+  // just lengths/prefixes to spot a copy-paste mismatch), remove once
+  // webhooks are confirmed working.
+  console.log("square-webhook debug", {
+    valid,
+    urlUsed: signatureUrl,
+    urlLength: signatureUrl.length,
+    keyLength: signatureKey.length,
+    receivedSigPrefix: signatureHeader.slice(0, 12),
+    computedSigPrefix: computed.slice(0, 12),
+  });
 
   if (!valid) {
     return new Response("Invalid signature", { status: 401 });
@@ -59,7 +68,7 @@ export async function onRequestPost(context) {
   return new Response("ok", { status: 200 });
 }
 
-async function verifySquareSignature(signatureKey, url, body, signatureHeader) {
+async function computeSquareSignature(signatureKey, url, body) {
   const enc = new TextEncoder();
   const key = await crypto.subtle.importKey(
     "raw",
@@ -69,8 +78,7 @@ async function verifySquareSignature(signatureKey, url, body, signatureHeader) {
     ["sign"]
   );
   const mac = await crypto.subtle.sign("HMAC", key, enc.encode(url + body));
-  const computed = btoa(String.fromCharCode(...new Uint8Array(mac)));
-  return computed === signatureHeader;
+  return btoa(String.fromCharCode(...new Uint8Array(mac)));
 }
 
 async function notify(env, payment) {
