@@ -24,21 +24,49 @@ build command `npm run build`, output directory `dist`).
 
 Open `src/siteConfig.js` — everything site-specific lives there:
 
-1. **`PAY_INVOICE_URL`** — currently a placeholder. Create or confirm
-   your link at [paypal.me](https://paypal.me) (sign in → set/check
-   your PayPal.Me username), then copy the resulting
-   `https://paypal.me/yourusername` URL in. The payer types in the
-   amount themselves, so one link covers any invoice.
-2. **`PAY_FILING_CHARGE_URL`** — also a placeholder now. PayPal.Me
-   supports a fixed amount by adding it to the end of the same link,
-   e.g. `https://paypal.me/yourusername/50` for a flat £50 charge.
-   Use your PayPal.Me username plus the current filing charge amount.
+1. **`PAY_INVOICE_URL`** — currently a placeholder. In your Square
+   Dashboard: **Payment links → Create link → Collect a payment →**
+   toggle on **"Allow buyer to set the price"**. Payers check out as a
+   guest with a card — no Square account needed. Copy the resulting
+   `square.link/...` URL in.
+2. **`PAY_FILING_CHARGE_URL`** — also a placeholder. Same process as
+   above, but leave "Allow buyer to set the price" off and set the
+   fixed filing charge amount instead.
 3. **`ONBOARDING_APP_URL`** — already set to
    `https://onbaording.abacusapps.us/`. Update here if that domain
    changes.
 
 `TIDE_URL` was carried over from the current site and doesn't need
 changes unless that link changes.
+
+## Email notification when a client pays
+
+`functions/api/square-webhook.js` is a Cloudflare Pages Function —
+it deploys automatically with the rest of the site (no separate
+hosting) and listens at `/api/square-webhook`. Square calls it
+whenever a payment happens; if the payment completed, it emails you
+via Resend.
+
+**Set these environment variables** in the Cloudflare Pages project
+→ Settings → Environment variables (mark the last three "Encrypt"):
+
+| Variable | Value |
+|---|---|
+| `SQUARE_WEBHOOK_URL` | the exact URL you register with Square below, e.g. `https://abacusconsultancy.co.uk/api/square-webhook` |
+| `SQUARE_WEBHOOK_SIGNATURE_KEY` | shown by Square when you create the webhook subscription (next step) |
+| `RESEND_API_KEY` | your Resend API key |
+| `RESEND_FROM` | a sender address on a domain verified in Resend, e.g. `notifications@abacusconsultancy.co.uk` |
+| `NOTIFY_EMAIL` | the address that should receive the "client paid" email |
+
+**Then in Square:** Dashboard → **Developer** → **Webhooks** →
+**Add endpoint**. URL: the same one you put in `SQUARE_WEBHOOK_URL`
+above. Subscribe to the **`payment.updated`** event. Square will show
+you a **Signature Key** — that's the value for
+`SQUARE_WEBHOOK_SIGNATURE_KEY`.
+
+This fires for any completed payment on your Square account — so both
+the "pay any amount" invoice link and the fixed filing charge link
+will trigger the same notification email.
 
 ## What's on the site
 

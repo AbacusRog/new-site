@@ -2,16 +2,16 @@
 // Update these two and the whole site follows.
 export const ONBOARDING_APP_URL = "https://onbaording.abacusapps.us/";
 
-// PayPal.Me link — the payer types in whatever amount they owe, so one
-// link covers any invoice. Create/confirm yours at paypal.me, then replace
-// the placeholder username below (e.g. https://paypal.me/AbacusConsultancy).
-export const PAY_INVOICE_URL = "https://paypal.me/AbacusConsultancy";
+// Square "Payment link" with "Allow buyer to set the price" switched on
+// in the Square Dashboard (Payment Links > Create link > Collect a payment
+// > Allow buyer to set the price). Payers check out as a guest with a
+// card — no Square account needed. Replace this placeholder with the
+// real link once it's created in Square.
+export const PAY_INVOICE_URL = "https://square.link/u/REPLACE-WITH-OPEN-AMOUNT-LINK";
 
-// Fixed-amount filing charge. PayPal.Me supports a fixed amount by
-// adding it to the end of the link (e.g. paypal.me/yourusername/50 for
-// a flat £50). Replace the placeholder with your real PayPal.Me
-// username and the current filing charge amount.
-export const PAY_FILING_CHARGE_URL = "https://paypal.me/AbacusConsultancy/54";
+// Fixed-amount filing charge, also a Square Payment Link (same as above,
+// just with "Allow buyer to set the price" left off and a fixed amount set).
+export const PAY_FILING_CHARGE_URL = "https://square.link/u/REPLACE-WITH-FIXED-AMOUNT-LINK";
 
 export const TIDE_URL = "https://www.tide.co/partners/abacus-consultancy/";
 

@@ -33,7 +33,7 @@ export default function Payments() {
               >
                 Pay your invoice
               </a>
-              <p className="payment-note">Secure checkout powered by PayPal. You'll be asked to enter the amount before paying.</p>
+              <p className="payment-note">Secure checkout powered by Square. You'll be asked to confirm the amount before paying — no Square account needed.</p>
             </article>
 
             <article className="payment-card">
@@ -41,7 +41,7 @@ export default function Payments() {
               <h2>Pay filing charge</h2>
               <p>
                 For the standard company filing charge. Use the link
-                below to pay the fixed amount securely via PayPal.
+                below to pay the fixed amount securely via Square.
               </p>
               <a
                 href={PAY_FILING_CHARGE_URL}
@@ -98,7 +98,7 @@ export default function Payments() {
               <span className="steps-number">03</span>
               <div>
                 <h3>Pay securely by card</h3>
-                <p>Checkout is handled by PayPal — we never see or store your card or account details.</p>
+                <p>Checkout is handled by Square — we never see or store your card details.</p>
               </div>
             </li>
           </ol>
