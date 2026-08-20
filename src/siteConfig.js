@@ -7,11 +7,11 @@ export const ONBOARDING_APP_URL = "https://onbaording.abacusapps.us/";
 // > Allow buyer to set the price). Payers check out as a guest with a
 // card — no Square account needed. Replace this placeholder with the
 // real link once it's created in Square.
-export const PAY_INVOICE_URL = "https://square.link/u/REPLACE-WITH-OPEN-AMOUNT-LINK";
+export const PAY_INVOICE_URL = "https://square.link/u/2Pr5qFAV";
 
 // Fixed-amount filing charge, also a Square Payment Link (same as above,
 // just with "Allow buyer to set the price" left off and a fixed amount set).
-export const PAY_FILING_CHARGE_URL = "https://square.link/u/REPLACE-WITH-FIXED-AMOUNT-LINK";
+export const PAY_FILING_CHARGE_URL = "https://square.link/u/UWw0m3xb";
 
 export const TIDE_URL = "https://www.tide.co/partners/abacus-consultancy/";
 
