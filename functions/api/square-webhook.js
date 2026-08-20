@@ -60,7 +60,10 @@ export async function onRequestPost(context) {
   // Only notify once a payment has actually completed (avoids duplicate
   // emails for the same payment moving through earlier statuses).
   if (event?.type === "payment.updated" && payment?.status === "COMPLETED") {
+    console.log("square-webhook notifying", { paymentId: payment?.id, status: payment?.status });
     await notify(env, payment);
+  } else {
+    console.log("square-webhook skipped notify", { type: event?.type, status: payment?.status });
   }
 
   // Always 200 so Square doesn't retry — we've handled (or intentionally
@@ -111,5 +114,10 @@ async function notify(env, payment) {
       subject: `Payment received: ${currency} ${amount}`,
       html,
     }),
+  }).then(async (res) => {
+    const resBody = await res.text();
+    console.log("resend response", { status: res.status, body: resBody });
+  }).catch((err) => {
+    console.log("resend fetch error", { message: String(err) });
   });
 }
